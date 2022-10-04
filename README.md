@@ -8,7 +8,7 @@ J-QuantsAPIベータ版で、銘柄リストを取得するお試しプログラ
   
     # ＩＤトークン保存ファイル名: 'jq_idtoken.json'
     
-    # 銘柄リスト保存ファイル名: 'jq_listed_info.csv'
+    # 銘柄リスト出力ファイル名: 'jq_listed_info.csv'
     
 ３）本プログラムは自由にご使用ください。
 
