@@ -29,7 +29,7 @@ def func_read_from_file(str_fname):
         return str_read
 
     except IOError as e:
-        print('Can not Write!!!')
+        print('Can not read!!!')
         print(type(e))
 
 
