@@ -7,7 +7,6 @@ import urllib3
 import requests
 import datetime
 import json
-##import time
 import sys
 from datetime import datetime as dt
 
@@ -53,7 +52,6 @@ def func_write_to_file(str_fname_output, str_text):
 
 
 # =============================================
-
 # 機能 : 保存してあるIDトークンを使い、銘柄リストを取得し、コード順にソートして保存する。
 # 引数 : 無し
 # 返値 : 無し
@@ -89,7 +87,10 @@ time_expire = time_idtoken + span_expire
 print('expiry date:', time_expire)
 time_remain = time_expire - datetime.datetime.now()
 print('remaining time:', time_remain)
-print('IDトークンの有効期間は２４時間です。')
+if time_remain > datetime.timedelta(days=0) :
+    print('IDトークンの有効期間は２４時間です。')
+else :
+    print('IDトークンは、無効です。有効期間を過ぎました。')
 print()
 
 
@@ -98,15 +99,28 @@ print()
 idToken = str_idtoken
 headers = {'Authorization': 'Bearer {}'.format(idToken)}
 req_info = requests.get("https://api.jpx-jquants.com/v1/listed/info", headers=headers)
-
 dic_info = json.loads(req_info.text)    # jsonをパースして辞書型に変換
-list_info = dic_info.get('info')       # "info"のvalueを取り出す。リスト型。 
-# info を取得できなかった場合
-if list_info is None :
-    print('message :', dic_info.get('Message'))
-    print(req_info.text)
-    quit()
+if req_info.status_code == 200 :
+    # 正常に銘柄情報を取得
+    list_info = dic_info.get('info')       # "info"のvalueを取り出す。リスト型。
+else :
+    # info を取得できなかった場合
+    # --- Message -----------------------------
+    # infoのエラーで、403の場合のmessageは'M'と大文字になっているので注意。
+    # エラーは400,401,403と3種類有る
+    # 400: 未確認。これは何で起こるのしょう。
+    # 401: {"message":"The incoming token has expired"}
+    # 403: {"Message":"Access Denied"}
+    # -----------------------------------------
+    print('status_code:', req_info.status_code)
+    if req_info.status_code == 401 :
+        print('message    :', dic_info.get('message'))
+    elif req_info.status_code == 403 :
+        print('message    :', dic_info.get('Message'))
+    else :
+        print(req_info.text)
 
+    quit()  # 終了
 
 
 # 銘柄コード順にソート
