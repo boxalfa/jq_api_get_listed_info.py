@@ -135,11 +135,14 @@ try:
         str_text = ''
         str_text = str_text + '"' + 'Code' + '",'
         str_text = str_text + '"' + 'CompanyName' + '",'
-        str_text = str_text + '"' + 'CompanyNameFull' + '",'
-        str_text = str_text + '"' + 'CompanyNameEnglish' + '",'
+        str_text = str_text + '"' + 'Sector17Code' + '",'
+        str_text = str_text + '"' + 'Sector17CodeName' + '",'
+        str_text = str_text + '"' + 'Sector33Code' + '",'
+        str_text = str_text + '"' + 'Sector33CodeName' + '",'
+        str_text = str_text + '"' + 'ScaleCategory' + '",'
         str_text = str_text + '"' + 'MarketCode' + '",'
-        str_text = str_text + '"' + 'SectorCode' + '",'
-        str_text = str_text + '"' + 'UpdateDate' + '"\n'
+        str_text = str_text + '"' + 'MarketCodeName' + '",'
+        str_text = str_text + '"' + 'Date' + '"\n'
         fout.write(str_text)     
 
         # データ行
@@ -147,13 +150,16 @@ try:
             str_text = ''
             str_text = str_text + '"' + sorted_list[i].get('Code') + '",'
             str_text = str_text + '"' + sorted_list[i].get('CompanyName') + '",'
-            str_text = str_text + '"' + sorted_list[i].get('CompanyNameFull') + '",'
-            str_text = str_text + '"' + sorted_list[i].get('CompanyNameEnglish') + '",'
+            str_text = str_text + '"' + sorted_list[i].get('Sector17Code') + '",'
+            str_text = str_text + '"' + sorted_list[i].get('Sector17CodeName') + '",'
+            str_text = str_text + '"' + sorted_list[i].get('Sector33Code') + '",'
+            str_text = str_text + '"' + sorted_list[i].get('Sector33CodeName') + '",'
+            str_text = str_text + '"' + sorted_list[i].get('ScaleCategory') + '",'
             str_text = str_text + '"' + sorted_list[i].get('MarketCode') + '",'
-            str_text = str_text + '"' + sorted_list[i].get('SectorCode') + '",'
-            str_text = str_text + '"' + sorted_list[i].get('UpdateDate') + '"\n'
+            str_text = str_text + '"' + sorted_list[i].get('MarketCodeName') + '",'
+            str_text = str_text + '"' + sorted_list[i].get('Date') + '"\n'
             fout.write(str_text)     
-
+            
         fout.close
         print('file close: ', str_fname_output)
         print('銘柄数: ', i + 1 )  # 0からカウントしているので1加算       
